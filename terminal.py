@@ -18,12 +18,12 @@
 
 # metadata
 ' Terminal for Ninja-IDE '
-__version__ = ' 0.1 '
+__version__ = ' 0.2 '
 __license__ = ' GPL '
 __author__ = ' juancarlospaco '
 __email__ = ' juancarlospaco@ubuntu.com '
 __url__ = ''
-__date__ = ' 15/02/2013 '
+__date__ = ' 30/05/2013 '
 __prj__ = ' terminal '
 __docformat__ = 'html'
 __source__ = ''
@@ -33,12 +33,10 @@ __full_licence__ = ''
 # imports
 from sip import setapi
 
-from PyQt4.QtGui import QIcon
-from PyQt4.QtGui import QLabel
-from PyQt4.QtGui import QDockWidget
+from PyQt4.QtGui import QIcon, QLabel, QDockWidget
 
 try:
-    from PyKDE4.kdecore import *
+    from PyKDE4.kdecore import KPluginLoader
     from PyKDE4.kparts import *
 except ImportError:
     pass
@@ -60,15 +58,15 @@ class Terminal(plugin.Plugin):
         " Init Class Terminal "
         self.terminal = QDockWidget()
         self.terminal.setFeatures(QDockWidget.DockWidgetFloatable |
-                                           QDockWidget.DockWidgetMovable)
+                                  QDockWidget.DockWidgetMovable)
         self.terminal.setWindowTitle(__doc__)
         self.terminal.setStyleSheet('QDockWidget::title{text-align: center;}')
         try:
             self.factory = KPluginLoader("libkonsolepart").factory()
             self.terminal.setWidget(self.factory.create(self).widget())
         except:
-            self.terminal.setWidget(QLabel(""" <center>
-            <h3>ಠ_ಠ<br> ERROR: Please, install Konsole Terminal App ! </h3><br>
+            self.terminal.setWidget(QLabel(""" <center> <h3>ಠ_ಠ<br>
+            ERROR: Please, install Konsole Terminal and PyKDE ! </h3><br>
             <br><i> (Sorry, cant embed non-Qt Terminal Apps). </i><center>"""))
         self.misc = self.locator.get_service('misc')
         self.misc.add_widget(self.terminal,
