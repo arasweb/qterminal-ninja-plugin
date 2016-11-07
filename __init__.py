@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from terminal import Terminal
+from QTerminal import QTerminal
